@@ -1,0 +1,218 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Droid+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@100;200;300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 99%;
+    --foreground: 200 20% 15%;
+
+    --card: 180 20% 97%;
+    --card-foreground: 200 20% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 20% 15%;
+
+    --primary: 182 100% 25%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 180 15% 93%;
+    --secondary-foreground: 200 20% 20%;
+
+    --muted: 180 10% 94%;
+    --muted-foreground: 200 10% 45%;
+
+    --accent: 180 100% 36%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 180 15% 88%;
+    --input: 180 15% 88%;
+    --ring: 182 100% 25%;
+
+    --radius: 0.5rem;
+
+    --teal: 182 100% 25%;
+    --teal-light: 180 100% 42%;
+    --teal-mid: 180 100% 36%;
+    --teal-dark: 181 100% 31%;
+
+    --sidebar-background: 180 20% 97%;
+    --sidebar-foreground: 200 20% 15%;
+    --sidebar-primary: 182 100% 25%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 180 15% 93%;
+    --sidebar-accent-foreground: 200 20% 15%;
+    --sidebar-border: 180 15% 88%;
+    --sidebar-ring: 182 100% 25%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+
+  ::selection {
+    background: hsl(182 100% 25% / 0.2);
+    color: hsl(200 20% 15%);
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(0 0% 97%);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(182 100% 25% / 0.3);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(182 100% 25% / 0.5);
+  }
+}
+
+@layer utilities {
+
+  /* BRAND FONT (Droid Serif) */
+  .brand-font {
+    font-family: 'Droid Serif', serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .text-gold-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      hsl(180 100% 42%),
+      hsl(182 100% 25%),
+      hsl(181 100% 31%)
+    );
+  }
+
+  .bg-gold-gradient {
+    background-image: linear-gradient(
+      135deg,
+      hsl(180 100% 42%),
+      hsl(182 100% 25%),
+      hsl(181 100% 31%)
+    );
+  }
+
+  .border-gold-gradient {
+    border-image: linear-gradient(
+      135deg,
+      hsl(180 100% 42%),
+      hsl(182 100% 25%),
+      hsl(181 100% 31%)
+    ) 1;
+  }
+
+  .glass-dark {
+    background: hsl(0 0% 100% / 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsl(180 15% 88% / 0.5);
+  }
+
+  .glow-gold {
+    box-shadow:
+      0 0 30px hsl(182 100% 25% / 0.1),
+      0 0 60px hsl(180 100% 36% / 0.05);
+  }
+
+  .text-shadow-gold {
+    text-shadow: 0 0 40px hsl(182 100% 25% / 0.2);
+  }
+
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-elegant {
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .font-body {
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .line-gold {
+    @apply h-px w-full;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(182 100% 25% / 0.3),
+      transparent
+    );
+  }
+
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .order-input {
+  @apply w-full bg-secondary border border-border px-4 py-3 rounded-lg text-sm focus:outline-none focus:border-primary/50;
+}
+
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(180 100% 42% / 0.15),
+      transparent
+    );
+    animation: shimmer 3s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes ripple {
+    0% { transform: scale(0.8); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
+  }
+
+  .animate-ripple {
+    animation: ripple 2s ease-out infinite;
+  }
+}
