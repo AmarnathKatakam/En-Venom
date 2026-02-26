@@ -119,7 +119,7 @@ const OrderModal = ({ open, product, onClose }: Props) => {
       ) as string[];
       const urls = [...new Set(candidateUrls)];
 
-      let lastError = "Order submission failed";
+      let lastError = "We couldn't place your order right now. Please try again shortly.";
 
       for (const url of urls) {
         try {
@@ -140,20 +140,17 @@ const OrderModal = ({ open, product, onClose }: Props) => {
             } catch {
               responseError = responseText;
             }
-            lastError = responseError || `Order submission failed (${response.status})`;
+            lastError = responseError
+              ? "We couldn't process your order. Please check your details and try again."
+              : "We couldn't place your order right now. Please try again shortly.";
             continue;
           }
 
           setSubmitted(true);
           return;
         } catch (urlError) {
-          lastError = urlError instanceof Error ? urlError.message : "Network error";
+          lastError = "We're having trouble connecting right now. Please try again in a moment.";
         }
-      }
-
-      if (/failed to fetch|networkerror|network error/i.test(lastError)) {
-        setError("Order server not reachable. Run npm run dev:full and try again.");
-        return;
       }
 
       setError(lastError);
