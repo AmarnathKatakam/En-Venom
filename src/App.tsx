@@ -9,6 +9,8 @@ import NotFound from "./pages/NotFound";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Cookies from "./pages/Cookies";
+import Contact from "./pages/Contact";
+import Faq from "./pages/Faq";
 import MainLayout from "./layouts/MainLayout";
 import ScrollToTop from "@/components/ScrollToTop";
 
@@ -21,21 +23,20 @@ const App = () => (
       <Sonner />
 
       <BrowserRouter>
-        {/* Always reset scroll on route change */}
         <ScrollToTop />
 
         <Routes>
-          {/* Home */}
+          {/* HOME — pass order handler */}
           <Route
             path="/"
             element={
               <MainLayout>
-                <Index />
+                {(onOrder) => <Index onOrder={onOrder} />}
               </MainLayout>
             }
           />
 
-          {/* Legal pages */}
+          {/* LEGAL PAGES */}
           <Route
             path="/privacy"
             element={
@@ -59,6 +60,24 @@ const App = () => (
             element={
               <MainLayout>
                 <Cookies />
+              </MainLayout>
+            }
+          />
+
+          <Route
+            path="/contact"
+            element={
+              <MainLayout>
+                <Contact />
+              </MainLayout>
+            }
+          />
+
+          <Route
+            path="/faq"
+            element={
+              <MainLayout>
+                <Faq />
               </MainLayout>
             }
           />

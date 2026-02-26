@@ -2,6 +2,8 @@
 
 Premium React + TypeScript storefront for BlackRoth Beverages.
 
+Includes backend order-email support using Gmail SMTP.
+
 ## Tech Stack
 
 - Vite
@@ -17,6 +19,23 @@ Premium React + TypeScript storefront for BlackRoth Beverages.
 npm install
 npm run dev
 ```
+
+To run frontend + backend together:
+
+```sh
+npm run dev:full
+```
+
+## Gmail SMTP Setup (Order Emails)
+
+1. Copy `.env.example` to `.env`.
+2. Set:
+   - `GMAIL_USER` to your Gmail address.
+   - `GMAIL_APP_PASSWORD` to a Gmail App Password (not your normal Gmail password).
+   - `ORDER_RECEIVER_EMAIL` to the email where orders should be received.
+3. Start the app with `npm run dev:full`.
+
+Order form submissions from the modal are sent to `POST /api/orders`, and the backend emails the order details to `ORDER_RECEIVER_EMAIL`.
 
 ## Available Scripts
 

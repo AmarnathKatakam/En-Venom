@@ -43,21 +43,23 @@ const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.8 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all ${
-        scrolled ? "glass-dark py-3" : "bg-transparent py-6"
+        scrolled
+          ? "py-3 bg-background/35 backdrop-blur-md border-b border-white/20"
+          : "bg-transparent py-4 md:py-6"
       }`}
     >
-      <div className="container mx-auto px-6 flex items-center justify-between">
+      <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
 
         {/* LOGO */}
         <button
           onClick={() => goToSection("#hero")}
-          className="brand-font text-2xl md:text-3xl font-bold tracking-wider text-gold-gradient"
+          className="brand-font text-xl sm:text-2xl md:text-3xl font-bold tracking-wider text-gold-gradient"
         >
           BlackRoth
         </button>
 
         {/* DESKTOP NAV */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-5 lg:gap-8">
           {navItems.map((item) => (
             <button
               key={item.label}
@@ -72,7 +74,8 @@ const Navbar = () => {
         {/* MOBILE TOGGLE */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden flex flex-col gap-1.5"
+          className="md:hidden flex flex-col gap-1.5 p-1"
+          aria-label="Toggle navigation menu"
         >
           <motion.span animate={{ rotate: menuOpen ? 45 : 0, y: menuOpen ? 8 : 0 }} className="block w-6 h-px bg-primary" />
           <motion.span animate={{ opacity: menuOpen ? 0 : 1 }} className="block w-6 h-px bg-primary" />
@@ -89,12 +92,12 @@ const Navbar = () => {
             exit={{ opacity: 0, height: 0 }}
             className="glass-dark md:hidden"
           >
-            <div className="flex flex-col items-center gap-6 py-8">
+            <div className="flex flex-col items-center gap-5 px-6 py-6">
               {navItems.map((item) => (
                 <button
                   key={item.label}
                   onClick={() => goToSection(item.id)}
-                  className="text-sm tracking-[0.2em] uppercase font-body text-foreground hover:text-primary"
+                  className="w-full text-center text-sm tracking-[0.18em] uppercase font-body text-foreground hover:text-primary"
                 >
                   {item.label}
                 </button>

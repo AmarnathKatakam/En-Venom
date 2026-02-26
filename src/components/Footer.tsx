@@ -98,11 +98,10 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface FooterProps {
-  setOrderOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectedProduct: React.Dispatch<React.SetStateAction<string>>;
+  onOrder: () => void;
 }
 
-const Footer = ({ setOrderOpen, setSelectedProduct }: FooterProps) => {
+const Footer = ({ onOrder }: FooterProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
   const navigate = useNavigate();
@@ -113,34 +112,31 @@ const Footer = ({ setOrderOpen, setSelectedProduct }: FooterProps) => {
   };
 
   return (
-    <footer id="contact" className="relative pt-20 pb-8 border-t border-border/30">
-      <div className="container mx-auto px-6">
+    <footer id="contact" className="relative border-t border-border/30 pt-14 sm:pt-20 pb-8">
+      <div className="container mx-auto px-4 sm:px-6">
 
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-14"
+          className="mb-12 sm:mb-14 grid grid-cols-1 gap-10 sm:gap-12 md:grid-cols-4"
         >
           {/* Brand */}
           <div className="md:col-span-2">
-            <h3 className="brand-font text-3xl font-bold text-gold-gradient mb-4">
+            <h3 className="mb-4 brand-font text-2xl sm:text-3xl font-bold text-gold-gradient">
               BlackRoth
             </h3>
 
-            <p className="font-elegant text-muted-foreground leading-relaxed max-w-sm mb-6">
+            <p className="mb-6 max-w-sm font-elegant text-base sm:text-lg text-muted-foreground leading-relaxed">
               Premium natural mineral alkaline water. Sourced from ancient springs,
               crafted for those who demand excellence.
             </p>
 
             {/* ORDER BUTTON */}
             <button
-              onClick={() => {
-                setSelectedProduct(""); // no preselect
-                setOrderOpen(true);
-              }}
-              className="bg-gold-gradient text-primary-foreground font-body text-xs tracking-[0.2em] uppercase px-8 py-3 hover:opacity-90 transition-opacity"
+              onClick={onOrder}
+              className="w-full sm:w-auto bg-gold-gradient px-6 sm:px-8 py-3 text-[11px] sm:text-xs tracking-[0.14em] sm:tracking-[0.2em] uppercase text-primary-foreground font-body transition-opacity hover:opacity-90"
             >
               Place Your Order
             </button>
@@ -148,7 +144,7 @@ const Footer = ({ setOrderOpen, setSelectedProduct }: FooterProps) => {
 
           {/* Company */}
           <div>
-            <h4 className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-6">
+            <h4 className="mb-4 sm:mb-6 font-body text-xs tracking-[0.3em] uppercase text-primary">
               Company
             </h4>
             <ul className="space-y-3">
@@ -173,13 +169,13 @@ const Footer = ({ setOrderOpen, setSelectedProduct }: FooterProps) => {
 
           {/* Support */}
           <div>
-            <h4 className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-6">
+            <h4 className="mb-4 sm:mb-6 font-body text-xs tracking-[0.3em] uppercase text-primary">
               Support
             </h4>
             <ul className="space-y-3">
               <li>
                 <button
-                  onClick={() => scrollTo("#contact")}
+                  onClick={() => navigate("/contact")}
                   className="font-body text-sm text-muted-foreground hover:text-foreground"
                 >
                   Contact Us
@@ -187,7 +183,7 @@ const Footer = ({ setOrderOpen, setSelectedProduct }: FooterProps) => {
               </li>
               <li>
                 <button
-                  onClick={() => scrollTo("#faq")}
+                  onClick={() => navigate("/faq")}
                   className="font-body text-sm text-muted-foreground hover:text-foreground"
                 >
                   FAQ
@@ -200,12 +196,12 @@ const Footer = ({ setOrderOpen, setSelectedProduct }: FooterProps) => {
         <div className="line-gold mb-6" />
 
         {/* Bottom */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="font-body text-xs text-muted-foreground">
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+          <p className="text-center md:text-left font-body text-xs text-muted-foreground">
             © 2026 <span className="brand-font">BlackRoth</span> Beverages. All rights reserved.
           </p>
 
-          <div className="flex gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-6">
             <button
               onClick={() => navigate("/privacy")}
               className="font-body text-xs text-muted-foreground hover:text-foreground"

@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import heroBg from "@/assets/hero-bg.jpg";
 import heroVideo from "@/assets/herovideo.mp4";
 import bottleHero from "@/assets/bottle-hero.png";
 import envenomlogo from "@/assets/envenom-logo.png";
@@ -10,7 +9,10 @@ const Hero = () => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section
+      id="hero"
+      className="relative min-h-[calc(100svh-5rem)] md:min-h-[calc(100svh-6rem)] flex items-center justify-center overflow-hidden"
+    >
       {/* Background
       <div className="absolute inset-0">
         <img
@@ -23,14 +25,14 @@ const Hero = () => {
       </div> */}
 
       {/* Background */}
-<div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden">
   <video
     src={heroVideo}
     autoPlay
     loop
-    muted={true} 
+    muted={true}
     playsInline
-    className="w-full object-cover opacity-100"
+    className="h-full w-full object-fill opacity-100"
   />
 
   {/* Dark gradient overlays */}
@@ -62,7 +64,7 @@ const Hero = () => {
         ))}
       </div>
 
-      <div className="relative z-10 container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 pt-20">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 pt-6 md:pt-8 pb-8 md:pb-12 flex flex-col lg:flex-row items-center gap-8 md:gap-12">
         {/* Text */}
         <div className="flex-1 text-center lg:text-left">
           <motion.div
@@ -70,7 +72,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
           >
-            <p className="font-body text-xs tracking-[0.4em] uppercase text-primary mb-4">
+            <p className="font-body text-[10px] sm:text-xs tracking-[0.28em] sm:tracking-[0.4em] uppercase text-primary mb-4">
               Unleash the power of hydration
             </p>
           </motion.div>
@@ -94,12 +96,12 @@ const Hero = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="mb-6"
+            className="mb-5 md:mb-6"
           >
             <img
               src={envenomlogo}
               alt="Envenom Logo"
-              className="w-[280px] md:w-[420px] lg:w-[520px] object-contain"
+              className="w-[220px] sm:w-[300px] md:w-[420px] lg:w-[520px] object-contain mx-auto lg:mx-0"
             />
           </motion.div>
 
@@ -107,7 +109,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.7 }}
-            className="font-elegant text-lg md:text-xl text-muted-foreground max-w-md mx-auto lg:mx-0 mb-8 leading-relaxed"
+            className="font-elegant text-base sm:text-lg md:text-xl text-muted-foreground max-w-md mx-auto lg:mx-0 mb-7 md:mb-8 leading-relaxed px-1 sm:px-0"
           >
             Born from ancient mineral springs, purified by nature. 
             Experience water in its most pristine form — alkaline, mineral-rich, extraordinary.
@@ -117,17 +119,17 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.9 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start w-full sm:w-auto"
           >
             <button
               onClick={scrollToProducts}
-              className="bg-gold-gradient text-primary-foreground font-body text-sm tracking-[0.2em] uppercase px-8 py-4 hover:opacity-90 transition-opacity shimmer"
+              className="w-full sm:w-auto bg-gold-gradient text-primary-foreground font-body text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.2em] uppercase px-6 sm:px-8 py-3.5 sm:py-4 hover:opacity-90 transition-opacity shimmer"
             >
               Explore Collection
             </button>
             <button
               onClick={() => document.querySelector("#story")?.scrollIntoView({ behavior: "smooth" })}
-              className="border border-primary/30 text-primary font-body text-sm tracking-[0.2em] uppercase px-8 py-4 hover:bg-primary/5 transition-colors"
+              className="w-full sm:w-auto border border-primary/30 text-primary font-body text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.2em] uppercase px-6 sm:px-8 py-3.5 sm:py-4 hover:bg-primary/5 transition-colors"
             >
               Our Story
             </button>
@@ -139,17 +141,17 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
-          className="flex-1 flex justify-center"
+          className="flex-1 flex justify-center w-full max-w-[420px] sm:max-w-[520px] lg:max-w-none"
         >
           <div className="relative">
             {/* Glow ring */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-primary/5 blur-3xl animate-pulse" />
+              <div className="w-52 h-52 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full bg-primary/5 blur-3xl animate-pulse" />
             </div>
             <motion.img
               src={bottleHero}
               alt="Blackroth Premium Water Bottle"
-              className="relative z-10 h-[400px] md:h-[550px] object-contain drop-shadow-2xl"
+              className="relative z-10 h-[300px] sm:h-[380px] md:h-[500px] lg:h-[550px] object-contain drop-shadow-2xl"
               animate={{ y: [0, -15, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             />
@@ -162,7 +164,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2"
       >
         <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground font-body">Scroll</span>
         <motion.div
