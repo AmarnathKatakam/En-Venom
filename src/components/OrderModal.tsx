@@ -18,10 +18,31 @@ const emptyOrder = {
 
 const emptyCustomer = {
   fullName: "",
+  countryCode: "+91",
   phone: "",
   email: "",
   address: "",
 };
+
+const phoneCountryCodes = [
+  { code: "+91", country: "India" },
+  { code: "+1", country: "United States" },
+  { code: "+44", country: "United Kingdom" },
+  { code: "+61", country: "Australia" },
+  { code: "+971", country: "United Arab Emirates" },
+  { code: "+65", country: "Singapore" },
+  { code: "+49", country: "Germany" },
+  { code: "+33", country: "France" },
+  { code: "+81", country: "Japan" },
+  { code: "+86", country: "China" },
+  { code: "+966", country: "Saudi Arabia" },
+];
+
+const bottlePricing = {
+  bottle250: { label: "250 ml Bottle", price: "Rs 45" },
+  bottle750: { label: "750 ml Bottle", price: "Rs 120" },
+  bottle1000: { label: "1 Litre Bottle", price: "Rs 160" },
+} as const;
 
 const OrderModal = ({ open, product, onClose }: Props) => {
   const [submitted, setSubmitted] = useState(false);
@@ -61,9 +82,9 @@ const OrderModal = ({ open, product, onClose }: Props) => {
   };
 
   const selectedProducts = [
-    order.bottle250 ? { label: "250 ml Bottle", qty: order.qty250 } : null,
-    order.bottle750 ? { label: "750 ml Bottle", qty: order.qty750 } : null,
-    order.bottle1000 ? { label: "1 Litre Bottle", qty: order.qty1000 } : null,
+    order.bottle250 ? { label: bottlePricing.bottle250.label, qty: order.qty250 } : null,
+    order.bottle750 ? { label: bottlePricing.bottle750.label, qty: order.qty750 } : null,
+    order.bottle1000 ? { label: bottlePricing.bottle1000.label, qty: order.qty1000 } : null,
   ].filter(Boolean) as Array<{ label: string; qty: string }>;
 
   const submitOrder = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -85,6 +106,7 @@ const OrderModal = ({ open, product, onClose }: Props) => {
     try {
       const payload = JSON.stringify({
         ...customer,
+        phone: `${customer.countryCode}${customer.phone}`,
         products: selectedProducts.map((item) => ({
           label: item.label,
           qty: Number(item.qty),
@@ -187,13 +209,37 @@ const OrderModal = ({ open, product, onClose }: Props) => {
               onChange={(e) => setCustomer((prev) => ({ ...prev, fullName: e.target.value }))}
               required
             />
-            <input
-              className="order-input"
-              placeholder="Contact Number"
-              value={customer.phone}
-              onChange={(e) => setCustomer((prev) => ({ ...prev, phone: e.target.value }))}
-              required
-            />
+            <div className="flex gap-2">
+              <select
+                className="order-input w-[44%] sm:w-[38%]"
+                value={customer.countryCode}
+                onChange={(e) => setCustomer((prev) => ({ ...prev, countryCode: e.target.value }))}
+                aria-label="Country code"
+                required
+              >
+                {phoneCountryCodes.map((item) => (
+                  <option key={`${item.code}-${item.country}`} value={item.code}>
+                    {item.country} ({item.code})
+                  </option>
+                ))}
+              </select>
+
+              <input
+                className="order-input flex-1"
+                placeholder="Contact Number"
+                value={customer.phone}
+                onChange={(e) =>
+                  setCustomer((prev) => ({
+                    ...prev,
+                    phone: e.target.value.replace(/\D/g, ""),
+                  }))
+                }
+                inputMode="numeric"
+                pattern="[0-9]{6,15}"
+                title="Enter 6 to 15 digits"
+                required
+              />
+            </div>
             <input
               className="order-input"
               type="email"
@@ -217,7 +263,8 @@ const OrderModal = ({ open, product, onClose }: Props) => {
 
               {/* 250 ML */}
               <PremiumOption
-                label="250 ml Bottle"
+                label={bottlePricing.bottle250.label}
+                price={bottlePricing.bottle250.price}
                 active={order.bottle250}
                 qty={order.qty250}
                 onToggle={() => toggleBottle("bottle250")}
@@ -226,7 +273,8 @@ const OrderModal = ({ open, product, onClose }: Props) => {
 
               {/* 750 ML */}
               <PremiumOption
-                label="750 ml Bottle"
+                label={bottlePricing.bottle750.label}
+                price={bottlePricing.bottle750.price}
                 active={order.bottle750}
                 qty={order.qty750}
                 onToggle={() => toggleBottle("bottle750")}
@@ -235,7 +283,8 @@ const OrderModal = ({ open, product, onClose }: Props) => {
 
               {/* 1 Litre */}
               <PremiumOption
-                label="1 Litre Bottle"
+                label={bottlePricing.bottle1000.label}
+                price={bottlePricing.bottle1000.price}
                 active={order.bottle1000}
                 qty={order.qty1000}
                 onToggle={() => toggleBottle("bottle1000")}
@@ -269,13 +318,14 @@ export default OrderModal;
 
 interface PremiumProps {
   label: string;
+  price: string;
   active: boolean;
   qty: string;
   onToggle: () => void;
   onQty: (v: string) => void;
 }
 
-const PremiumOption = ({ label, active, qty, onToggle, onQty }: PremiumProps) => {
+const PremiumOption = ({ label, price, active, qty, onToggle, onQty }: PremiumProps) => {
   return (
     <div className="flex items-center justify-between gap-3">
       <button
@@ -301,7 +351,9 @@ const PremiumOption = ({ label, active, qty, onToggle, onQty }: PremiumProps) =>
           )}
         </div>
 
-        <span className="text-sm sm:text-base tracking-wide">{label}</span>
+        <span className="text-sm sm:text-base tracking-wide">
+          {label} <span className="text-primary/80">({price})</span>
+        </span>
       </button>
 
       {active && (
