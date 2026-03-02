@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Droid+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Droid+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@100;200;300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -63,6 +63,21 @@
     overflow-x: hidden;
   }
 
+  html,
+  body,
+  #root {
+    width: 100%;
+    min-height: 100%;
+  }
+
+  img,
+  svg,
+  canvas,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
   }
@@ -91,6 +106,13 @@
 }
 
 @layer utilities {
+  .site-shell {
+    @apply mx-auto w-full max-w-[1800px] px-4 sm:px-6 lg:px-10 2xl:px-16;
+  }
+
+  .legal-shell {
+    @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8 2xl:px-10;
+  }
 
   /* BRAND FONT (Droid Serif) */
   .brand-font {

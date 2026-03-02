@@ -112,23 +112,24 @@ const Footer = ({ onOrder }: FooterProps) => {
   };
 
   return (
-    <footer id="contact" className="relative border-t border-border/30 pt-14 sm:pt-20 pb-8">
-      <div className="container mx-auto px-4 sm:px-6">
+    <footer id="contact" className="relative border-t border-border/30 pb-8 pt-14 sm:pt-20 lg:pt-24">
+      <div className="site-shell">
 
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="mb-12 sm:mb-14 grid grid-cols-1 gap-10 sm:gap-12 md:grid-cols-4"
+          className="mb-12 grid grid-cols-1 gap-10 sm:mb-14 sm:gap-12 md:grid-cols-4 lg:gap-14"
         >
           {/* Brand */}
-          <div className="md:col-span-2">
-            <h3 className="mb-4 brand-font text-2xl sm:text-3xl font-bold text-gold-gradient">
-              BlackRoth
+          <div className="md:col-span-2 md:pr-6 xl:pr-10">
+            <h3 className="mb-4 text-2xl font-bold sm:text-3xl xl:text-4xl">
+              <span className="brand-font text-gold-gradient">BlackRoth</span>{" "}
+              <span className="font-body text-foreground">Beverages</span>
             </h3>
 
-            <p className="mb-6 max-w-sm font-elegant text-base sm:text-lg text-muted-foreground leading-relaxed">
+            <p className="mb-6 max-w-sm font-elegant text-base leading-relaxed text-muted-foreground sm:text-lg xl:max-w-md xl:text-xl">
               Premium natural mineral alkaline water. Sourced from ancient springs,
               crafted for those who demand excellence.
             </p>
@@ -136,7 +137,7 @@ const Footer = ({ onOrder }: FooterProps) => {
             {/* ORDER BUTTON */}
             <button
               onClick={onOrder}
-              className="w-full sm:w-auto bg-gold-gradient px-6 sm:px-8 py-3 text-[11px] sm:text-xs tracking-[0.14em] sm:tracking-[0.2em] uppercase text-primary-foreground font-body transition-opacity hover:opacity-90"
+              className="w-full bg-gold-gradient px-6 py-3 text-[11px] uppercase tracking-[0.14em] text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto sm:px-8 sm:text-xs sm:tracking-[0.2em]"
             >
               Place Your Order
             </button>
@@ -151,7 +152,7 @@ const Footer = ({ onOrder }: FooterProps) => {
               <li>
                 <button
                   onClick={() => scrollTo("#story")}
-                  className="font-body text-sm text-muted-foreground hover:text-foreground"
+                  className="font-body text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   About Us
                 </button>
@@ -159,7 +160,7 @@ const Footer = ({ onOrder }: FooterProps) => {
               <li>
                 <button
                   onClick={() => scrollTo("#source")}
-                  className="font-body text-sm text-muted-foreground hover:text-foreground"
+                  className="font-body text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   Our Source
                 </button>
@@ -176,7 +177,7 @@ const Footer = ({ onOrder }: FooterProps) => {
               <li>
                 <button
                   onClick={() => navigate("/contact")}
-                  className="font-body text-sm text-muted-foreground hover:text-foreground"
+                  className="font-body text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   Contact Us
                 </button>
@@ -184,7 +185,7 @@ const Footer = ({ onOrder }: FooterProps) => {
               <li>
                 <button
                   onClick={() => navigate("/faq")}
-                  className="font-body text-sm text-muted-foreground hover:text-foreground"
+                  className="font-body text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   FAQ
                 </button>
@@ -196,29 +197,29 @@ const Footer = ({ onOrder }: FooterProps) => {
         <div className="line-gold mb-6" />
 
         {/* Bottom */}
-        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p className="text-center md:text-left font-body text-xs text-muted-foreground">
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row md:gap-6">
+          <p className="font-body text-xs text-muted-foreground text-center md:text-left">
             © 2026 <span className="brand-font">BlackRoth</span> Beverages. All rights reserved.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 md:justify-end sm:gap-x-6">
             <button
               onClick={() => navigate("/privacy")}
-              className="font-body text-xs text-muted-foreground hover:text-foreground"
+              className="font-body text-xs text-muted-foreground transition-colors hover:text-foreground"
             >
               Privacy Policy
             </button>
 
             <button
               onClick={() => navigate("/terms")}
-              className="font-body text-xs text-muted-foreground hover:text-foreground"
+              className="font-body text-xs text-muted-foreground transition-colors hover:text-foreground"
             >
               Terms of Service
             </button>
 
             <button
               onClick={() => navigate("/cookies")}
-              className="font-body text-xs text-muted-foreground hover:text-foreground"
+              className="font-body text-xs text-muted-foreground transition-colors hover:text-foreground"
             >
               Cookie Policy
             </button>

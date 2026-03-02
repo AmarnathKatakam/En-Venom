@@ -1,6 +1,7 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
+import envenomlogo from "@/assets/envenom-logo.png";
 
 const navItems = [
   { label: "Home", id: "#hero" },
@@ -25,15 +26,31 @@ const Navbar = () => {
 
   // ⭐ Smart navigation + scroll
   const goToSection = (id: string) => {
+    const scrollWithOffset = () => {
+      if (id === "#hero") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
+      const section = document.querySelector(id);
+      const nav = document.querySelector("nav");
+      if (!section) return;
+
+      const navHeight = nav ? nav.getBoundingClientRect().height : 0;
+      const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+      const top = Math.max(sectionTop - navHeight - 8, 0);
+      window.scrollTo({ top, behavior: "smooth" });
+    };
+
     setMenuOpen(false);
 
     if (location.pathname !== "/") {
       navigate("/");
       setTimeout(() => {
-        document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
+        scrollWithOffset();
       }, 150);
     } else {
-      document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
+      scrollWithOffset();
     }
   };
 
@@ -44,27 +61,32 @@ const Navbar = () => {
       transition={{ duration: 0.8 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all ${
         scrolled
-          ? "py-3 bg-background/35 backdrop-blur-md border-b border-white/20"
-          : "bg-transparent py-4 md:py-6"
+          ? "py-1.5 sm:py-2 bg-white/55 backdrop-blur-md border-b border-white/70"
+          : "py-2 sm:py-2.5 lg:py-3 bg-white/40 backdrop-blur-[2px]"
       }`}
     >
-      <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
+      <div className="site-shell flex items-center justify-between gap-4">
 
         {/* LOGO */}
         <button
           onClick={() => goToSection("#hero")}
-          className="brand-font text-xl sm:text-2xl md:text-3xl font-bold tracking-wider text-gold-gradient"
+          className="shrink-0 rounded-md p-1"
+          aria-label="envenom"
         >
-          BlackRoth
+          <img
+            src={envenomlogo}
+            alt="envenom"
+            className="h-7 w-auto sm:h-8 md:h-9 xl:h-10 2xl:h-11 object-contain"
+          />
         </button>
 
         {/* DESKTOP NAV */}
-        <div className="hidden md:flex items-center gap-5 lg:gap-8">
+        <div className="hidden lg:flex items-center gap-5 xl:gap-8 2xl:gap-10">
           {navItems.map((item) => (
             <button
               key={item.label}
               onClick={() => goToSection(item.id)}
-              className="text-sm tracking-[0.15em] uppercase font-body text-muted-foreground hover:text-primary transition-colors"
+              className="text-xs sm:text-sm 2xl:text-[15px] tracking-[0.12em] xl:tracking-[0.15em] uppercase font-body text-slate-700 hover:text-primary transition-colors"
             >
               {item.label}
             </button>
@@ -74,7 +96,7 @@ const Navbar = () => {
         {/* MOBILE TOGGLE */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden flex flex-col gap-1.5 p-1"
+          className="lg:hidden flex flex-col gap-1.5 p-2"
           aria-label="Toggle navigation menu"
         >
           <motion.span animate={{ rotate: menuOpen ? 45 : 0, y: menuOpen ? 8 : 0 }} className="block w-6 h-px bg-primary" />
@@ -90,14 +112,14 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="glass-dark md:hidden"
+            className="glass-dark lg:hidden"
           >
-            <div className="flex flex-col items-center gap-5 px-6 py-6">
+            <div className="site-shell flex flex-col items-center gap-3 px-4 py-5 sm:gap-4 sm:py-6">
               {navItems.map((item) => (
                 <button
                   key={item.label}
                   onClick={() => goToSection(item.id)}
-                  className="w-full text-center text-sm tracking-[0.18em] uppercase font-body text-foreground hover:text-primary"
+                  className="w-full rounded-md py-2 text-center text-xs sm:text-sm tracking-[0.18em] uppercase font-body text-foreground hover:text-primary"
                 >
                   {item.label}
                 </button>

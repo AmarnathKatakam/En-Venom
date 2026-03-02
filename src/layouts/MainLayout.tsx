@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
+import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import OrderModal from "@/components/OrderModal";
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const MainLayout = ({ children }: Props) => {
+  const location = useLocation();
   const [orderOpen, setOrderOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState("");
 
@@ -23,11 +25,13 @@ const MainLayout = ({ children }: Props) => {
   const content =
     typeof children === "function" ? children(openOrder) : children;
 
+  const isHome = location.pathname === "/";
+
   return (
     <>
       <Navbar />
 
-      <main className="pt-20 md:pt-24">
+      <main className={isHome ? "" : "pt-16 sm:pt-20 md:pt-24 xl:pt-28 2xl:pt-32"}>
         {content}
       </main>
 

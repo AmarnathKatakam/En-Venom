@@ -2,8 +2,11 @@ import { motion } from "framer-motion";
 import heroVideo from "@/assets/herovideo.mp4";
 import bottleHero from "@/assets/bottle-hero.png";
 import envenomlogo from "@/assets/envenom-logo.png";
+import { activateVideoWithSound, useViewportVideo } from "@/hooks/useViewportVideo";
 
 const Hero = () => {
+  const heroVideoRef = useViewportVideo({ id: "hero-video", threshold: 0.5 });
+
   const scrollToProducts = () => {
     document.querySelector("#products")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -11,41 +14,32 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-[calc(100svh-5rem)] md:min-h-[calc(100svh-6rem)] flex items-center justify-center overflow-hidden"
+      className="relative flex h-[100svh] items-center justify-center overflow-hidden"
+      onClick={() => {
+        void activateVideoWithSound("hero-video");
+      }}
     >
-      {/* Background
-      <div className="absolute inset-0">
-        <img
-          src={heroBg}
-          alt="Water splash"
-          className="w-full h-full object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/60 to-background" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-background/80" />
-      </div> */}
-
-      {/* Background */}
       <div className="absolute inset-0 overflow-hidden">
-  <video
-    src={heroVideo}
-    autoPlay
-    loop
-    muted={true}
-    playsInline
-    className="h-full w-full object-fill opacity-100"
-  />
+        <video
+          ref={heroVideoRef}
+          src={heroVideo}
+          loop
+          playsInline
+          preload="metadata"
+          onClick={() => {
+            void activateVideoWithSound("hero-video");
+          }}
+          className="h-full w-full object-fill brightness-100 contrast-100 saturate-100"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/35 via-white/10 to-white/25" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/25 via-transparent to-white/15" />
+      </div>
 
-  {/* Dark gradient overlays */}
-  <div className="absolute inset-0 bg-gradient-to-b from-background via-background/50 to-background" />
-  <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/60" />
-</div>
-
-      {/* Animated particles */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 rounded-full bg-primary/20"
+            className="absolute h-1 w-1 rounded-full bg-primary/20"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -64,35 +58,19 @@ const Hero = () => {
         ))}
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 pt-6 md:pt-8 pb-8 md:pb-12 flex flex-col lg:flex-row items-center gap-8 md:gap-12">
-        {/* Text */}
-        <div className="flex-1 text-center lg:text-left">
+      <div className="site-shell relative z-10 flex h-full flex-col items-center justify-center gap-6 py-4 md:gap-10 lg:flex-row lg:items-end lg:justify-between lg:py-6 xl:gap-14 2xl:gap-20">
+        <div className="flex-1 text-center lg:text-left xl:max-w-[760px]">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
           >
-            <p className="font-body text-[10px] sm:text-xs tracking-[0.28em] sm:tracking-[0.4em] uppercase text-primary mb-4">
+            <p className="mb-4 brand-font text-[36px] font-bold uppercase tracking-[0.26em] text-gold-gradient sm:text-[22px] sm:tracking-[0.36em]">
               Unleash the power of hydration
             </p>
           </motion.div>
 
-          {/* <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.9] mb-6"
-          >
-            <span className="brand-font text-gold-gradient text-shadow-gold">
-              BlackRoth
-            </span>
-            <br />
-            <span className="text-foreground text-4xl md:text-5xl lg:text-6xl font-light italic">
-              Beverages
-            </span>
-          </motion.h1> */}
-
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
@@ -101,57 +79,55 @@ const Hero = () => {
             <img
               src={envenomlogo}
               alt="Envenom Logo"
-              className="w-[220px] sm:w-[300px] md:w-[420px] lg:w-[520px] object-contain mx-auto lg:mx-0"
+              className="mx-auto w-[190px] object-contain sm:w-[250px] md:w-[340px] lg:mx-0 lg:w-[420px] xl:w-[470px] 2xl:w-[520px]"
             />
-          </motion.div>
+          </motion.div> */}
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.7 }}
-            className="font-elegant text-base sm:text-lg md:text-xl text-muted-foreground max-w-md mx-auto lg:mx-0 mb-7 md:mb-8 leading-relaxed px-1 sm:px-0"
+            className="mx-auto mb-7 max-w-md px-1 font-elegant text-[clamp(1rem,2.5vw,1.55rem)] leading-relaxed text-slate-800 drop-shadow-[0_2px_8px_rgba(255,255,255,0.55)] sm:px-0 md:mb-8 lg:mx-0 lg:max-w-xl"
           >
-            Born from ancient mineral springs, purified by nature. 
-            Experience water in its most pristine form — alkaline, mineral-rich, extraordinary.
+            Born from ancient mineral springs, purified by nature. Experience water in its most pristine form -
+            alkaline, mineral-rich, extraordinary.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.9 }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start w-full sm:w-auto"
+            className="flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row sm:gap-4 lg:justify-start"
           >
             <button
               onClick={scrollToProducts}
-              className="w-full sm:w-auto bg-gold-gradient text-primary-foreground font-body text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.2em] uppercase px-6 sm:px-8 py-3.5 sm:py-4 hover:opacity-90 transition-opacity shimmer"
+              className="w-full bg-gold-gradient px-6 py-3.5 text-xs uppercase tracking-[0.14em] text-primary-foreground transition-opacity hover:opacity-90 shimmer sm:w-auto sm:px-8 sm:py-4 sm:text-sm sm:tracking-[0.2em]"
             >
               Explore Collection
             </button>
             <button
               onClick={() => document.querySelector("#story")?.scrollIntoView({ behavior: "smooth" })}
-              className="w-full sm:w-auto border border-primary/30 text-primary font-body text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.2em] uppercase px-6 sm:px-8 py-3.5 sm:py-4 hover:bg-primary/5 transition-colors"
+              className="w-full border border-primary/30 px-6 py-3.5 text-xs uppercase tracking-[0.14em] text-primary transition-colors hover:bg-primary/5 sm:w-auto sm:px-8 sm:py-4 sm:text-sm sm:tracking-[0.2em]"
             >
               Our Story
             </button>
           </motion.div>
         </div>
 
-        {/* Bottle */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
-          className="flex-1 flex justify-center w-full max-w-[420px] sm:max-w-[520px] lg:max-w-none"
+          className="flex w-full max-w-[320px] flex-1 justify-center sm:max-w-[380px] md:max-w-[430px] lg:max-w-[480px] xl:max-w-[520px]"
         >
           <div className="relative">
-            {/* Glow ring */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-52 h-52 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full bg-primary/5 blur-3xl animate-pulse" />
+              <div className="h-44 w-44 rounded-full bg-primary/5 blur-3xl animate-pulse sm:h-56 sm:w-56 md:h-64 md:w-64" />
             </div>
             <motion.img
               src={bottleHero}
               alt="Blackroth Premium Water Bottle"
-              className="relative z-10 h-[300px] sm:h-[380px] md:h-[500px] lg:h-[550px] object-contain drop-shadow-2xl"
+              className="relative z-10 h-[250px] object-contain drop-shadow-2xl sm:h-[320px] md:h-[390px] lg:h-[430px] xl:h-[470px] 2xl:h-[520px]"
               animate={{ y: [0, -15, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             />
@@ -159,18 +135,17 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
-        className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2"
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
       >
-        <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground font-body">Scroll</span>
+        <span className="font-body text-xs uppercase tracking-[0.3em] text-muted-foreground">Scroll</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-px h-8 bg-gradient-to-b from-primary/50 to-transparent"
+          className="h-8 w-px bg-gradient-to-b from-primary/50 to-transparent"
         />
       </motion.div>
     </section>

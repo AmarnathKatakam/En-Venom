@@ -21,8 +21,8 @@ const StorySection = () => {
     <section id="story" className="relative overflow-hidden py-16 sm:py-24 md:py-28">
       <div className="absolute top-0 left-0 right-0 line-gold" />
 
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 items-center gap-10 md:gap-12 lg:grid-cols-2 lg:gap-16">
+      <div className="site-shell">
+        <div className="grid grid-cols-1 items-center gap-10 md:gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-24">
           <motion.div
             ref={ref}
             initial={{ opacity: 0, x: -50 }}
@@ -40,11 +40,12 @@ const StorySection = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 1, delay: 0.2 }}
+            className="xl:max-w-[700px]"
           >
             <p className="mb-4 text-[10px] sm:text-xs tracking-[0.28em] sm:tracking-[0.4em] uppercase text-primary font-body">
               Our Story
             </p>
-            <h2 className="mb-5 sm:mb-6 font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
+            <h2 className="mb-5 sm:mb-6 font-display text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold text-foreground leading-tight">
               Crafted by <span className="text-gold-gradient italic">Nature</span>,<br />
               Perfected by <span className="text-gold-gradient italic">Passion</span>
             </h2>

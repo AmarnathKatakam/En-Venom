@@ -163,11 +163,11 @@ const OrderModal = ({ open, product, onClose }: Props) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:px-4">
+    <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/60 p-3 backdrop-blur-sm sm:p-4">
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="bg-background w-full max-w-lg max-h-[92svh] overflow-y-auto rounded-2xl border border-border p-5 sm:p-8 shadow-2xl"
+        className="max-h-[92svh] w-full max-w-xl overflow-y-auto rounded-2xl border border-border bg-background p-4 shadow-2xl sm:p-6 md:p-8"
       >
         <div className="mb-6 flex items-center justify-between gap-4">
           <h2 className="text-lg sm:text-xl tracking-wide sm:tracking-wider text-gold-gradient">
@@ -198,7 +198,7 @@ const OrderModal = ({ open, product, onClose }: Props) => {
           </div>
         ) : (
           /* FORM */
-          <form className="space-y-4" onSubmit={submitOrder}>
+          <form className="space-y-4 sm:space-y-5" onSubmit={submitOrder}>
             <input
               className="order-input"
               placeholder="Full Name"
@@ -206,9 +206,9 @@ const OrderModal = ({ open, product, onClose }: Props) => {
               onChange={(e) => setCustomer((prev) => ({ ...prev, fullName: e.target.value }))}
               required
             />
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row">
               <select
-                className="order-input w-[44%] sm:w-[38%]"
+                className="order-input w-full sm:w-[42%] lg:w-[36%]"
                 value={customer.countryCode}
                 onChange={(e) => setCustomer((prev) => ({ ...prev, countryCode: e.target.value }))}
                 aria-label="Country code"
@@ -256,7 +256,7 @@ const OrderModal = ({ open, product, onClose }: Props) => {
 
             {/* PREMIUM MULTI SELECT */}
 
-            <div className="space-y-4">
+            <div className="space-y-3.5 sm:space-y-4">
 
               {/* 250 ML */}
               <PremiumOption
@@ -324,18 +324,18 @@ interface PremiumProps {
 
 const PremiumOption = ({ label, price, active, qty, onToggle, onQty }: PremiumProps) => {
   return (
-    <div className="flex items-center justify-between gap-3">
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <button
         type="button"
         onClick={onToggle}
-        className={`flex items-center gap-3 sm:gap-4 text-left transition-all ${
+        className={`flex items-center gap-3 text-left transition-all sm:gap-4 ${
           active ? "text-gold-gradient" : "text-muted-foreground"
         }`}
       >
         <div
           className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all ${
             active
-              ? "border-yellow-400 bg-yellow-400 shadow-lg shadow-yellow-400/30"
+              ? "border-primary bg-primary shadow-lg shadow-primary/30"
               : "border-border"
           }`}
         >
@@ -343,12 +343,12 @@ const PremiumOption = ({ label, price, active, qty, onToggle, onQty }: PremiumPr
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              className="w-2 h-2 bg-black rounded-sm"
+              className="w-2 h-2 bg-primary-foreground rounded-sm"
             />
           )}
         </div>
 
-        <span className="text-sm sm:text-base tracking-wide">
+        <span className="text-sm tracking-wide sm:text-base">
           {label} <span className="text-primary/80">({price})</span>
         </span>
       </button>
@@ -357,7 +357,7 @@ const PremiumOption = ({ label, price, active, qty, onToggle, onQty }: PremiumPr
         <input
           type="number"
           min="1"
-          className="order-input w-20 sm:w-24"
+          className="order-input w-full sm:w-24"
           placeholder="Qty"
           value={qty}
           onChange={(e) => onQty(e.target.value)}

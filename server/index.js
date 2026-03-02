@@ -6,7 +6,7 @@ import nodemailer from "nodemailer";
 dotenv.config();
 
 const app = express();
-const port = Number(process.env.PORT || 3001);
+const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
@@ -97,9 +97,69 @@ app.post("/api/orders", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Order email server running on http://localhost:${port}`);
+app.post("/api/contact", async (req, res) => {
+  try {
+    const { fullName, email, message } = req.body ?? {};
+
+    if (!fullName || !email || !message) {
+      return res.status(400).json({
+        error: "fullName, email, and message are required.",
+      });
+    }
+
+    await transporter.sendMail({
+      from: `"enVenom Contact" <${process.env.GMAIL_USER}>`,
+      to: process.env.ORDER_RECEIVER_EMAIL,
+      replyTo: email,
+      subject: `New Contact Message - ${fullName}`,
+      text: [
+        "New contact message received:",
+        "",
+        `Name: ${fullName}`,
+        `Email: ${email}`,
+        "",
+        "Message:",
+        String(message),
+      ].join("\n"),
+      html: `
+        <h2>New contact message received</h2>
+        <p><strong>Name:</strong> ${escapeHtml(fullName)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+        <p><strong>Message:</strong></p>
+        <p>${escapeHtml(String(message)).replaceAll("\n", "<br/>")}</p>
+      `,
+    });
+
+    return res.status(200).json({ ok: true });
+  } catch (error) {
+    console.error("Contact email failed:", error);
+    return res.status(500).json({ error: "Failed to send contact email." });
+  }
 });
+
+const server = app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+server.on("error", (error) => {
+  if (error.code === "EADDRINUSE") {
+    console.error(`Port ${PORT} is already in use.`);
+  } else {
+    console.error("Server failed to start:", error);
+  }
+  process.exit(1);
+});
+
+const shutdown = (signal) => {
+  console.log(`${signal} received. Shutting down HTTP server...`);
+  server.close(() => {
+    console.log("HTTP server closed.");
+    process.exit(0);
+  });
+};
+
+process.on("SIGINT", () => shutdown("SIGINT"));
+process.on("SIGTERM", () => shutdown("SIGTERM"));
 
 function escapeHtml(value) {
   return value
