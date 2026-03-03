@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { apiUrl } from "@/lib/api";
 
 interface Props {
   open: boolean;
@@ -113,44 +114,36 @@ const OrderModal = ({ open, product, onClose }: Props) => {
         })),
       });
 
-      const envApiUrl = import.meta.env.VITE_ORDER_API_URL?.trim();
-      const candidateUrls = [envApiUrl, "/api/orders", "http://localhost:3001/api/orders"].filter(
-        Boolean,
-      ) as string[];
-      const urls = [...new Set(candidateUrls)];
-
       let lastError = "We couldn't place your order right now. Please try again shortly.";
+      try {
+        const response = await fetch(apiUrl("/api/orders"), {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: payload,
+        });
 
-      for (const url of urls) {
-        try {
-          const response = await fetch(url, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: payload,
-          });
-
-          if (!response.ok) {
-            const responseText = await response.text();
-            let responseError = "";
-            try {
-              const parsed = JSON.parse(responseText);
-              responseError = parsed.error ?? "";
-            } catch {
-              responseError = responseText;
-            }
-            lastError = responseError
-              ? "We couldn't process your order. Please check your details and try again."
-              : "We couldn't place your order right now. Please try again shortly.";
-            continue;
+        if (!response.ok) {
+          const responseText = await response.text();
+          let responseError = "";
+          try {
+            const parsed = JSON.parse(responseText);
+            responseError = parsed.error ?? "";
+          } catch {
+            responseError = responseText;
           }
-
-          setSubmitted(true);
+          lastError = responseError
+            ? "We couldn't process your order. Please check your details and try again."
+            : "We couldn't place your order right now. Please try again shortly.";
+          setError(lastError);
           return;
-        } catch (urlError) {
-          lastError = "We're having trouble connecting right now. Please try again in a moment.";
         }
+
+        setSubmitted(true);
+        return;
+      } catch {
+        lastError = "We're having trouble connecting right now. Please try again in a moment.";
       }
 
       setError(lastError);

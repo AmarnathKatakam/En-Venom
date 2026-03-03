@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from "@/lib/api";
 
 const emptyContact = {
   fullName: "",
@@ -22,53 +23,45 @@ const Contact = () => {
 
     try {
       const payload = JSON.stringify(contact);
-      const envApiUrl = import.meta.env.VITE_CONTACT_API_URL?.trim();
-      const candidateUrls = [envApiUrl, "/api/contact", "http://localhost:3001/api/contact"].filter(
-        Boolean,
-      ) as string[];
-      const urls = [...new Set(candidateUrls)];
-
       let lastError = "We couldn't send your message right now. Please try again shortly.";
+      try {
+        const response = await fetch(apiUrl("/api/contact"), {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: payload,
+        });
 
-      for (const url of urls) {
-        try {
-          const response = await fetch(url, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: payload,
-          });
-
-          if (!response.ok) {
-            const responseText = await response.text();
-            let responseError = "";
-            try {
-              const parsed = JSON.parse(responseText);
-              responseError = parsed.error ?? "";
-            } catch {
-              responseError = responseText;
-            }
-            const routeMissing =
-              response.status === 404 || /Cannot POST \/api\/contact/i.test(responseError);
-            if (routeMissing) {
-              lastError =
-                "Contact service is temporarily unavailable. Please refresh and try again.";
-              continue;
-            }
-            lastError = responseError
-              ? "We couldn't process your message. Please review your details and try again."
-              : "We couldn't send your message right now. Please try again shortly.";
-            continue;
+        if (!response.ok) {
+          const responseText = await response.text();
+          let responseError = "";
+          try {
+            const parsed = JSON.parse(responseText);
+            responseError = parsed.error ?? "";
+          } catch {
+            responseError = responseText;
           }
-
-          setSubmitted(true);
-          setContact(emptyContact);
+          const routeMissing =
+            response.status === 404 || /Cannot POST \/api\/contact/i.test(responseError);
+          if (routeMissing) {
+            lastError = "Contact service is temporarily unavailable. Please refresh and try again.";
+            setError(lastError);
+            return;
+          }
+          lastError = responseError
+            ? "We couldn't process your message. Please review your details and try again."
+            : "We couldn't send your message right now. Please try again shortly.";
+          setError(lastError);
           return;
-        } catch {
-          lastError =
-            "Unable to reach contact server. Please ensure backend is running and try again.";
         }
+
+        setSubmitted(true);
+        setContact(emptyContact);
+        return;
+      } catch {
+        lastError =
+          "Unable to reach contact server. Please ensure backend is running and try again.";
       }
 
       setError(lastError);
