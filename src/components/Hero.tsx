@@ -14,7 +14,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="relative flex h-[100svh] items-center justify-center overflow-hidden"
+      className="relative flex min-h-screen w-full items-center justify-center overflow-hidden"
       onClick={() => {
         void activateVideoWithSound("hero-video");
       }}
@@ -58,18 +58,8 @@ const Hero = () => {
         ))}
       </div>
 
-      <div className="site-shell relative z-10 flex h-full flex-col items-center justify-center gap-6 py-4 md:gap-10 lg:flex-row lg:items-end lg:justify-between lg:py-6 xl:gap-14 2xl:gap-20">
-        <div className="flex-1 text-center lg:text-left xl:max-w-[760px]">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-          >
-            <p className="mb-4 brand-font text-[36px] font-bold uppercase tracking-[0.26em] text-gold-gradient sm:text-[22px] sm:tracking-[0.36em]">
-              Unleash the power of hydration
-            </p>
-          </motion.div>
-
+      <div className="site-shell relative z-10 flex min-h-screen w-full flex-col items-center justify-center gap-6 px-6 pb-10 pt-24 sm:px-8 sm:pt-28 md:px-10 md:gap-10 md:pt-32 lg:flex-row lg:items-end lg:justify-between lg:px-16 lg:pb-16 xl:gap-14 2xl:gap-20">
+        <div className="flex-1 text-center lg:-translate-x-6 lg:pb-8 lg:text-left xl:max-w-[680px]">
           {/* <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -89,8 +79,7 @@ const Hero = () => {
             transition={{ duration: 1, delay: 0.7 }}
             className="mx-auto mb-7 max-w-md px-1 font-elegant text-[clamp(1rem,2.5vw,1.55rem)] leading-relaxed text-slate-800 drop-shadow-[0_2px_8px_rgba(255,255,255,0.55)] sm:px-0 md:mb-8 lg:mx-0 lg:max-w-xl"
           >
-            Born from ancient mineral springs, purified by nature. Experience water in its most pristine form -
-            alkaline, mineral-rich, extraordinary.
+            Crafted from pristine mineral springs for a refined, premium hydration experience.
           </motion.p>
 
           <motion.div
@@ -118,7 +107,7 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
-          className="flex w-full max-w-[320px] flex-1 justify-center sm:max-w-[380px] md:max-w-[430px] lg:max-w-[480px] xl:max-w-[520px]"
+          className="flex w-full max-w-[320px] flex-1 justify-center sm:max-w-[380px] md:max-w-[430px] lg:max-w-[480px] lg:justify-end lg:translate-x-14 xl:max-w-[520px] xl:translate-x-20"
         >
           <div className="relative">
             <div className="absolute inset-0 flex items-center justify-center">

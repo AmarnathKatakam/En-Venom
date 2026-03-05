@@ -40,9 +40,9 @@ const phoneCountryCodes = [
 ];
 
 const bottlePricing = {
-  bottle250: { label: "250 ml Bottle", price: "Rs 45" },
-  bottle750: { label: "750 ml Bottle", price: "Rs 120" },
-  bottle1000: { label: "1 Litre Bottle", price: "Rs 160" },
+  bottle250: { label: "250 ml Bottle" },
+  bottle750: { label: "750 ml Bottle" },
+  bottle1000: { label: "1 Litre Bottle" },
 } as const;
 
 const OrderModal = ({ open, product, onClose }: Props) => {
@@ -254,7 +254,6 @@ const OrderModal = ({ open, product, onClose }: Props) => {
               {/* 250 ML */}
               <PremiumOption
                 label={bottlePricing.bottle250.label}
-                price={bottlePricing.bottle250.price}
                 active={order.bottle250}
                 qty={order.qty250}
                 onToggle={() => toggleBottle("bottle250")}
@@ -264,7 +263,6 @@ const OrderModal = ({ open, product, onClose }: Props) => {
               {/* 750 ML */}
               <PremiumOption
                 label={bottlePricing.bottle750.label}
-                price={bottlePricing.bottle750.price}
                 active={order.bottle750}
                 qty={order.qty750}
                 onToggle={() => toggleBottle("bottle750")}
@@ -274,7 +272,6 @@ const OrderModal = ({ open, product, onClose }: Props) => {
               {/* 1 Litre */}
               <PremiumOption
                 label={bottlePricing.bottle1000.label}
-                price={bottlePricing.bottle1000.price}
                 active={order.bottle1000}
                 qty={order.qty1000}
                 onToggle={() => toggleBottle("bottle1000")}
@@ -308,14 +305,13 @@ export default OrderModal;
 
 interface PremiumProps {
   label: string;
-  price: string;
   active: boolean;
   qty: string;
   onToggle: () => void;
   onQty: (v: string) => void;
 }
 
-const PremiumOption = ({ label, price, active, qty, onToggle, onQty }: PremiumProps) => {
+const PremiumOption = ({ label, active, qty, onToggle, onQty }: PremiumProps) => {
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <button
@@ -341,9 +337,7 @@ const PremiumOption = ({ label, price, active, qty, onToggle, onQty }: PremiumPr
           )}
         </div>
 
-        <span className="text-sm tracking-wide sm:text-base">
-          {label} <span className="text-primary/80">({price})</span>
-        </span>
+        <span className="text-sm tracking-wide sm:text-base">{label}</span>
       </button>
 
       {active && (

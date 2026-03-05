@@ -10,21 +10,18 @@ const products = [
   {
     name: "Essence",
     size: "250 ML Bottle",
-    price: "Rs 45",
     description: "The perfect companion for moments of clarity. Compact, elegant, essential.",
     video: bottle250Video,
   },
   {
     name: "Prestige",
     size: "750 ML Bottle",
-    price: "Rs 120",
     description: "For those who appreciate the finer things. Our signature presentation.",
     video: bottle750Video,
   },
   {
     name: "Imperial",
     size: "1 Litre Bottle",
-    price: "Rs 160",
     description: "The full experience. Uncompromised purity in generous measure.",
     video: bottle1LVideo,
   },
@@ -88,7 +85,6 @@ const ProductCard = ({ product, onOrder }: ProductCardProps) => {
       </p>
       <h3 className="mb-2 text-2xl font-semibold sm:text-3xl xl:text-[2rem] 2xl:text-[2.4rem]">{product.name}</h3>
       <p className="mb-4 max-w-sm text-sm text-muted-foreground sm:text-base xl:max-w-md xl:text-[1.05rem]">{product.description}</p>
-      <p className="text-2xl font-bold text-gold-gradient sm:text-[1.8rem] xl:text-[2.2rem]">{product.price}</p>
 
       <button
         onClick={() => onOrder(product.size)}

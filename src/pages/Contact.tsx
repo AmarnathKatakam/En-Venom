@@ -82,25 +82,20 @@ const Contact = () => {
     >
       <button
         onClick={() => navigate("/")}
-        className="mb-8 text-sm sm:text-base text-primary hover:opacity-80 transition-opacity"
+        className="mb-5 text-sm sm:text-base text-primary hover:opacity-80 transition-opacity"
       >
         {"<- Back to Home"}
       </button>
 
-      <h1 className="mb-6 text-3xl font-bold sm:text-4xl lg:text-5xl">Contact Us</h1>
-      <p className="mb-8 max-w-3xl leading-relaxed text-muted-foreground">
-        Reach our support team for orders, delivery updates, or general inquiries.
-      </p>
-
-      <div className="grid grid-cols-1 gap-8 lg:gap-12 md:grid-cols-2">
+      <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-2 lg:gap-12">
         <div className="space-y-4">
+          <h1 className="mb-6 text-3xl font-bold sm:text-4xl lg:text-5xl">Contact Us</h1>
+          <p className="mb-8 max-w-3xl leading-relaxed text-muted-foreground">
+            Reach our support team for orders, delivery updates, or general inquiries.
+          </p>
           <div>
             <p className="text-xs tracking-[0.2em] uppercase text-primary">Email</p>
             <p className="text-muted-foreground">support@blackroth.com</p>
-          </div>
-          <div>
-            <p className="text-xs tracking-[0.2em] uppercase text-primary">Phone</p>
-            <p className="text-muted-foreground">+91 98765 43210</p>
           </div>
           <div>
             <p className="text-xs tracking-[0.2em] uppercase text-primary">Address</p>
