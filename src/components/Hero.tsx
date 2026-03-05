@@ -59,7 +59,7 @@ const Hero = () => {
       </div>
 
       <div className="site-shell relative z-10 flex min-h-screen w-full flex-col items-center justify-center gap-6 px-6 pb-10 pt-24 sm:px-8 sm:pt-28 md:px-10 md:gap-10 md:pt-32 lg:flex-row lg:items-end lg:justify-between lg:px-16 lg:pb-16 xl:gap-14 2xl:gap-20">
-        <div className="flex-1 text-center lg:-translate-x-6 lg:pb-8 lg:text-left xl:max-w-[680px]">
+        <div className="flex-1 text-center lg:-translate-x-6 lg:flex lg:flex-col lg:justify-end lg:pb-0 lg:text-left xl:max-w-[680px]">
           {/* <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -107,7 +107,7 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
-          className="flex w-full max-w-[320px] flex-1 justify-center sm:max-w-[380px] md:max-w-[430px] lg:max-w-[480px] lg:justify-end lg:translate-x-14 xl:max-w-[520px] xl:translate-x-20"
+          className="flex w-full max-w-[320px] flex-1 justify-center sm:max-w-[380px] md:max-w-[430px] lg:max-w-[480px] lg:justify-end lg:translate-x-[66px] xl:max-w-[520px] xl:translate-x-[90px]"
         >
           <div className="relative">
             <div className="absolute inset-0 flex items-center justify-center">
